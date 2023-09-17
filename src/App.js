@@ -1,12 +1,19 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import FirstComp from "./components/first";
+import { BrowserRouter, Router, Switch } from "react-router-dom";
+import { Route } from "react-router-dom/cjs/react-router-dom.min";
+import HomePage from "./pages/homePage";
+import NotFound from "./pages/notFound";
 
 function App() {
   return (
     <>
-      <h1> Hi </h1>
-      <FirstComp />
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/*" component={NotFound} />
+        </Switch>
+      </BrowserRouter>
     </>
   );
 }
