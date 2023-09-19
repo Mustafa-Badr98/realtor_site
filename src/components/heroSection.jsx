@@ -33,7 +33,8 @@ const HeroSection = () => {
                   onClick={(e) => {
                     clickHandler(e);
                   }}
-                  className="btn btn-secondary"
+                  className="text-light fs-6 me-2 btn btn-secondary "
+                  style={{ borderRadius: "20px" }}
                 >
                   {" "}
                   SignUp

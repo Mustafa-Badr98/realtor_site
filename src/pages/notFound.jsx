@@ -1,5 +1,5 @@
 import React from "react";
-import MyNavbar from "../components/MyNavBar";
+
 const NotFound = () => {
   return (
     <>

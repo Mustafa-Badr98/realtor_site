@@ -4,10 +4,10 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 const MyNavbar = () => {
   return (
     <>
-      <div className="container">
+      <div className="container ">
         <nav
           id="nav"
-          className="navbar navbar-expand-lg bg-light tra p-0 container-fluid"
+          className="navbar navbar-expand-lg bg-body p-0"
         >
           <a className="navbar-brand text-dark ms-4 mt-2" href="#home">
             <h2>RealtorSite</h2>
@@ -50,14 +50,19 @@ const MyNavbar = () => {
             <div className="float-end">
               <ul className="navbar-nav">
                 <li className="nav-item">
-                  <Link className="nav-link text-dark fs-6  me-2" to="/login">
+                  <span
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                    className="text-light fs-6 me-2 btn btn-dark"
+                    style={{borderRadius:"20px"}}
+                  >
                     LogIn
-                  </Link>
+                  </span>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link text-dark fs-6  me-2" href="#about">
+                  <Link className="nav-link text-dark fs-6  me-2" to="/">
                     SignUp
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
