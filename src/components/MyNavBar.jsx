@@ -36,9 +36,9 @@ const MyNavbar = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link text-dark fs-6  me-2" href="#about">
+                <Link className="nav-link text-dark fs-6  me-2" to="/sell">
                   Sell
-                </a>
+                </Link>
               </li>
 
               <li className="nav-item">

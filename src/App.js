@@ -6,6 +6,7 @@ import { Route } from "react-router-dom/cjs/react-router-dom.min";
 import HomePage from "./pages/homePage";
 import NotFound from "./pages/notFound";
 import LoginPage from "./pages/loginPage";
+import Sell from './pages/Sell'
 
 function App() {
   return (
@@ -14,7 +15,11 @@ function App() {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/sell" component={Sell} />
           <Route exact path="/*" component={NotFound} />
+         
+
+
         </Switch>
       </BrowserRouter>
     </>
