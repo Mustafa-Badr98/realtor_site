@@ -1,20 +1,24 @@
 
 import React, { useState } from 'react';
+import '../App.css'
 
 function Sell() {
   const [formData, setFormData] = useState({
+    adname:'',
     governorate: '',
     city: '',
     region: '',
-    street: '',
+    // street: '',
     type: '',
+    furnished:'no',
     area: '',
     rooms: '',
     price: '',
     name: '',
     phone: '',
     email: '',
-    photo: null,
+    photos: [], // array to store selected photos
+
     otherInfo: '',
   });
 
@@ -28,19 +32,47 @@ function Sell() {
     });
   };
 
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    setFormData({
-      ...formData,
-      photo: file,
-    });
-  };
+  // const handleFileUpload = (e) => {
+  //   const file = e.target.files[0];
+  //   setFormData({
+  //     ...formData,
+  //     photo: file,
+  //   });
+  // };
+
+// uplaode files
+const handleFileUpload = (e) => {
+  const files = Array.from(e.target.files);
+
+  //  number of photos doesn't exceed 10
+  if (formData.photos.length + files.length > 10) {
+    alert('You can upload a maximum of 10 photos.');
+    return;
+  }
+
+  setFormData({
+    ...formData,
+    photos: [...formData.photos, ...files],
+  });
+};
+
+const removePhoto = (index) => {
+  const updatedPhotos = [...formData.photos];
+  updatedPhotos.splice(index, 1);
+  setFormData({
+    ...formData,
+    photos: updatedPhotos,
+  });
+};
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Perform client-side validation
+    // client-side validation
     const validationErrors = {};
+    if (!formData.adname.trim()) {
+      validationErrors.adname = 'Advertisement name is required.';
+    }
 
     if (!formData.governorate.trim()) {
       validationErrors.governorate = 'Governorate is required.';
@@ -54,9 +86,9 @@ function Sell() {
       validationErrors.region = 'Region is required.';
     }
 
-    if (!formData.street.trim()) {
-      validationErrors.street = 'Street is required.';
-    }
+    // if (!formData.street.trim()) {
+    //   validationErrors.street = 'Street is required.';
+    // }
 
     if (!formData.area.trim()) {
       validationErrors.area = 'Area is required.';
@@ -102,8 +134,28 @@ function Sell() {
 
   return (
     <div className="container mt-5">
-      <h1 className="text-danger text-center mb-4">Submit Property</h1>
+      <h1 className="text-secondary text-center mb-4">Post Your AD</h1>
       <form onSubmit={handleSubmit} noValidate>
+      <div className="mb-3">
+          <label htmlFor="adname" className="form-label">
+            AD Title:
+          </label>
+          <input
+            type="text"
+            className={`form-control ${errors.adname && 'is-invalid'}`}
+            id="adname"
+            name="adname"
+            value={formData.adname}
+            onChange={handleChange}
+            required
+          />
+          {errors.governorate && (
+            <div className="invalid-feedback">{errors.adname}</div>
+          )}
+        </div>
+
+
+
         <div className="mb-3">
           <label htmlFor="governorate" className="form-label">
             Governorate:
@@ -159,23 +211,6 @@ function Sell() {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="street" className="form-label">
-            Street:
-          </label>
-          <input
-            type="text"
-            className={`form-control ${errors.street && 'is-invalid'}`}
-            id="street"
-            name="street"
-            value={formData.street}
-            onChange={handleChange}
-          />
-          {errors.street && (
-            <div className="invalid-feedback">{errors.street}</div>
-          )}
-        </div>
-
-        <div className="mb-3">
           <label htmlFor="type" className="form-label">
             Type:
           </label>
@@ -194,10 +229,39 @@ function Sell() {
             <div className="invalid-feedback">{errors.type}</div>
           )}
         </div>
-
+         {/* furnished input */}
+         <div className="mb-3">
+        <label className="form-label">Furnished:</label>
+        <div>
+          <label className="form-check-label mr-2">
+            <input
+              type="radio"
+              className="form-check-input"
+              name="furnished"
+              value="yes"
+              checked={formData.furnished === 'yes'}
+              onChange={handleChange}
+            />
+            Yes
+          </label>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <label className="form-check-label">
+            <input
+              type="radio"
+              className="form-check-input"
+              name="furnished"
+              value="no"
+              checked={formData.furnished === 'no'}
+              onChange={handleChange}
+            />
+            No
+          </label>
+        </div>
+      </div>
+       
         <div className="mb-3">
           <label htmlFor="area" className="form-label">
-            Space (Square Meters):
+            Area (m²):
           </label>
           <input
             type="text"
@@ -233,7 +297,7 @@ function Sell() {
 
         <div className="mb-3">
           <label htmlFor="price" className="form-label">
-            Price:
+          Set Price:
           </label>
           <input
             type="text"
@@ -302,29 +366,85 @@ function Sell() {
           )}
         </div>
 
-        <div className="mb-3">
+{/* <div className="mb-3">
+<label htmlFor="photo" className="form-label">
+  Upload Photos (up to 10):
+</label>
+<input
+  type="file"
+  className={`form-control`}
+  id="photo"
+  name="photo"
+  accept="image/*"
+  onChange={handleFileUpload}
+  multiple // Allow multiple file selection
+/>
+{formData.photos.length > 0 && (
+  <div className="mt-2">
+    <h5>Selected Photos:</h5>
+    <div className="selected-photos">
+      {formData.photos.map((photo, index) => (
+        <img
+          key={index}
+          src={URL.createObjectURL(photo)}
+          alt={`Selected Photo ${index + 1}`}
+          className="selected-photo-thumbnail"
+        />
+      ))}
+    </div>
+  </div>
+)}
+{errors.photo && (
+  <div className="invalid-feedback">{errors.photo}</div>
+)}
+</div> */}
+ <div className="mb-3">
           <label htmlFor="photo" className="form-label">
-            Upload Photo:
+            Upload Photos (up to 10):
           </label>
           <input
             type="file"
-            className={`form-control ${errors.photo && 'is-invalid'}`}
+            className={`form-control`}
             id="photo"
             name="photo"
             accept="image/*"
             onChange={handleFileUpload}
-            required
+            multiple // Allow multiple file selection
           />
+          {formData.photos.length > 0 && (
+            <div className="mt-2">
+              <h5>Selected Photos:</h5>
+              <div className="selected-photos">
+                {formData.photos.map((photo, index) => (
+                  <div key={index} className="selected-photo-container">
+                    <img
+                      src={URL.createObjectURL(photo)}
+                      alt={`Selected Photo ${index + 1}`}
+                      className="selected-photo-thumbnail"
+                    />
+                    <button
+                      type="button"
+                      className="btn btn-danger remove-photo-btn"
+                      onClick={() => removePhoto(index)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
           {errors.photo && (
             <div className="invalid-feedback">{errors.photo}</div>
           )}
         </div>
 
-        <div className="mb-3">
-          <label htmlFor="otherInfo" className="form-label">
+
+         <div className="mb-3">
+         <label htmlFor="otherInfo" className="form-label">
             Other Information:
-          </label>
-          <textarea
+           </label>
+         <textarea
             className="form-control"
             id="otherInfo"
             name="otherInfo"
@@ -332,11 +452,15 @@ function Sell() {
             onChange={handleChange}
           />
         </div>
+        
 
-        <button type="submit" className="btn btn-primary">Submit</button>
+        <button type="submit" className="btn btn-danger">Post Now</button>
       </form>
     </div>
   );
 }
 
 export default Sell;
+
+
+

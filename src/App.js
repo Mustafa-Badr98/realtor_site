@@ -7,11 +7,13 @@ import HomePage from "./pages/homePage";
 import NotFound from "./pages/notFound";
 import LoginPage from "./pages/loginPage";
 import Sell from './pages/Sell'
+import MyNavbar from "./components/MyNavBar";
 
 function App() {
   return (
     <>
       <BrowserRouter>
+      <MyNavbar/>
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/login" component={LoginPage} />

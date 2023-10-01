@@ -6,7 +6,7 @@ import MyFooter from "../components/footer";
 const HomePage = () => {
   return (
     <>
-      <MyNavbar />
+      {/* <MyNavbar /> */}
       <HeroSection />
       <LoginModal />
       <MyFooter />
